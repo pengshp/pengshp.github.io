@@ -1,0 +1,257 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title class=pjax-title>Ceph 分布式系统搭建 - Neal's Blog</title><meta name=Description content="分享技术，记录生活!"><meta property="og:title" content="Ceph 分布式系统搭建"><meta property="og:description" content="
+        
+    Ceph
+    
+上一篇介绍了Ceph分布式文件系统，下面介绍Ceph分布式文件系统的安装配置和使用"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.hellolinux.cc/2020/cephfs-setup/"><meta property="og:image" content="https://blog.hellolinux.cc/images/logo.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2020-08-18T17:49:08+00:00"><meta property="article:modified_time" content="2020-08-18T17:49:08+00:00"><meta property="og:site_name" content="Neal's Blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.hellolinux.cc/images/logo.jpg"><meta name=twitter:title content="Ceph 分布式系统搭建"><meta name=twitter:description content="
+        
+    Ceph
+    
+上一篇介绍了Ceph分布式文件系统，下面介绍Ceph分布式文件系统的安装配置和使用"><meta name=application-name content="Neal's Blog"><meta name=apple-mobile-web-app-title content="Neal's Blog"><meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=https://simpleicons.org/icons/linux.svg><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.hellolinux.cc/2020/cephfs-setup/><link rel=prev href=https://blog.hellolinux.cc/2020/cephfs-info/><link rel=next href=https://blog.hellolinux.cc/2020/linux-tinyproxy-config/><link rel=stylesheet href=/lib/normalize/normalize.min.055364f5be272caa092b0e6654c165828707f8ab971e2656383a6d6392bc345e.css integrity="sha256-BVNk9b4nLKoJKw5mVMFlgocH+KuXHiZWODptY5K8NF4="><link rel=stylesheet href=/css/style.min.8d562f729248093252213c90d851344c0d1f4d574cb940d1b87af31dbbc7294a.css integrity="sha256-jVYvcpJICTJSITyQ2FE0TA0fTVdMuUDRuHrzHbvHKUo="><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/fontawesome-free/all.min.43202d5486e011f9684a17bd6846b5c16a2619002bfc783f7e32e20dfb6bf857.css integrity="sha256-QyAtVIbgEfloShe9aEa1wWomGQAr/Hg/fjLiDftr+Fc="><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.43202d5486e011f9684a17bd6846b5c16a2619002bfc783f7e32e20dfb6bf857.css integrity="sha256-QyAtVIbgEfloShe9aEa1wWomGQAr/Hg/fjLiDftr+Fc="></noscript><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="><noscript><link rel=stylesheet href=/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Ceph 分布式系统搭建","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.hellolinux.cc\/2020\/cephfs-setup\/"},"image":[{"@type":"ImageObject","url":"https:\/\/blog.hellolinux.cc\/images\/Apple-Devices-Preview.webp","width":3200,"height":2048}],"genre":"posts","keywords":"Linux","wordcount":1235,"url":"https:\/\/blog.hellolinux.cc\/2020\/cephfs-setup\/","datePublished":"2020-08-18T17:49:08+00:00","dateModified":"2020-08-18T17:49:08+00:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Neal","logo":"https:\/\/blog.hellolinux.cc\/images\/avatar-me.webp"},"authors":[{"@type":"Person","name":"Neal"}],"description":""}</script></head><body header-desktop=normal header-mobile=auto><script type=text/javascript>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark")}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(t){const e=document.getElementsByTagName("meta");for(let n=0;n<e.length;n++)if(e[n].getAttribute("name")===t)return e[n];return''}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"||e==="black"?setTheme(e):window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?setTheme("dark"):setTheme("light")}else"auto"==="light"||"auto"==="dark"||"auto"==="black"?(setTheme("auto"),saveTheme("auto")):(saveTheme("auto"),window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?setTheme("dark"):setTheme("light"));let metaColors={light:"#f8f8f8",dark:"#252627",black:"#000000"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")]</script><div id=back-to-top></div><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Neal's Blog"><img class="lazyload logo" data-src=https://simpleicons.org/icons/linux.svg data-srcset="https://simpleicons.org/icons/linux.svg, https://simpleicons.org/icons/linux.svg 1.5x, https://simpleicons.org/icons/linux.svg 2x" data-sizes=auto alt=https://simpleicons.org/icons/linux.svg title=https://simpleicons.org/icons/linux.svg><span class=header-title-pre><i class="far fa-edit fa-fw"></i></span><span id=desktop-header-typeit class=typeit></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/ title=返回首页>首页|Home </a><a class=menu-item href=/posts/>归档|Archive </a><a class=menu-item href=/categories/ title=分类>分类|Categories </a><a class=menu-item href=/tags/ title=标签>标签|Tags </a><a class=menu-item href=/about/ title=关于>关于|About </a><span class="menu-item delimiter"></span><a href=# onclick=return!1 class="menu-item language" title=选择语言>中文<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select title="Select Language" id=language-select-desktop onchange="location=this.value"><option value=/2020/cephfs-setup/ selected>中文</option></select>
+</a><span class="menu-item search" id=search-desktop><input type=text placeholder=Search... id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw"></i></a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
+</span><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题><i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-desktop title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Neal's Blog"><img class="lazyload logo" data-src=https://simpleicons.org/icons/linux.svg data-srcset="https://simpleicons.org/icons/linux.svg, https://simpleicons.org/icons/linux.svg 1.5x, https://simpleicons.org/icons/linux.svg 2x" data-sizes=auto alt=https://simpleicons.org/icons/linux.svg title=https://simpleicons.org/icons/linux.svg><span class=header-title-pre><i class="far fa-edit fa-fw"></i></span><span id=mobile-header-typeit class=typeit></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=Search... id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw"></i></a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/ title=返回首页>首页|Home</a><a class=menu-item href=/posts/ title>归档|Archive</a><a class=menu-item href=/categories/ title=分类>分类|Categories</a><a class=menu-item href=/tags/ title=标签>标签|Tags</a><a class=menu-item href=/about/ title=关于>关于|About</a><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-mobile title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a><a href=# onclick=return!1 class=menu-item title=选择语言>中文<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select title="Select Language" onchange="location=this.value"><option value=/2020/cephfs-setup/ selected>中文</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#1-环境说明>1. 环境说明</a></li><li><a href=#2配置相应的环境>2.配置相应的环境</a></li></ul><ul><li><a href=#admin管理节点配置>admin管理节点配置</a></li><li><a href=#node1节点配置>node1节点配置</a></li><li><a href=#dashboard配置>Dashboard配置</a></li><li><a href=#客户端的使用>客户端的使用</a></li></ul></nav></div></div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ceph 分布式系统搭建</h1><div class=post-meta><div class=post-meta-line><span class=post-author><span class=author><i class="author fas fa-user-circle fa-fw"></i><span class=screen-reader-text> </span><a href=https://blog.hellolinux.cc/authors/neal>Neal</a></span>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/linux/><i class="far fa-folder fa-fw"></i>Linux</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2020-08-18>2020-08-18</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2020-08-18>2020-08-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1235 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#1-环境说明>1. 环境说明</a></li><li><a href=#2配置相应的环境>2.配置相应的环境</a></li></ul><ul><li><a href=#admin管理节点配置>admin管理节点配置</a></li><li><a href=#node1节点配置>node1节点配置</a></li><li><a href=#dashboard配置>Dashboard配置</a></li><li><a href=#客户端的使用>客户端的使用</a></li></ul></nav></div></div><div class=content id=content><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fwwarning"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>本文最后更新于 <span class=timeago datetime=2020-08-18T17:49:08 title="August 18, 2020">2020-08-18</span>，文中内容可能已过时。</div></div></div><p><figure><a class=lightgallery href=https://pengshp.coding.net/p/images/d/images/git/raw/master/ceph-blog.jpg title=ceph-blog data-thumbnail=https://pengshp.coding.net/p/images/d/images/git/raw/master/ceph-blog.jpg data-sub-html="<h2>Ceph</h2><p>ceph-blog</p>"><img class=lazyload data-src=https://pengshp.coding.net/p/images/d/images/git/raw/master/ceph-blog.jpg data-srcset="https://pengshp.coding.net/p/images/d/images/git/raw/master/ceph-blog.jpg, https://pengshp.coding.net/p/images/d/images/git/raw/master/ceph-blog.jpg 1.5x, https://pengshp.coding.net/p/images/d/images/git/raw/master/ceph-blog.jpg 2x" data-sizes=auto alt=https://pengshp.coding.net/p/images/d/images/git/raw/master/ceph-blog.jpg></a><figcaption class=image-caption>Ceph</figcaption></figure></p><p>上一篇介绍了Ceph分布式文件系统，下面介绍Ceph分布式文件系统的安装配置和使用</p><h1 id=一环境准备 class=headerLink><a href=#%e4%b8%80%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87 class=header-mark></a>一、环境准备</h1><h2 id=1-环境说明 class=headerLink><a href=#1-%e7%8e%af%e5%a2%83%e8%af%b4%e6%98%8e class=header-mark></a>1 1. 环境说明</h2><ul><li>操作系统：CentOS Linux 7</li><li>node[1-3]添加一块5G的磁盘</li><li>Ceph 版本：nautilus</li></ul><table><thead><tr><th>主机名</th><th>IP地址</th><th>用途</th></tr></thead><tbody><tr><td>admin</td><td>10.10.10.60</td><td>管理节点 安装ceph-deploy</td></tr><tr><td>node1</td><td>10.10.10.61</td><td>mon mgr osd</td></tr><tr><td>node2</td><td>10.10.10.62</td><td>osd</td></tr><tr><td>node3</td><td>10.10.10.63</td><td>osd</td></tr><tr><td>client</td><td>10.10.10.64</td><td>client测试</td></tr></tbody></table><h2 id=2配置相应的环境 class=headerLink><a href=#2%e9%85%8d%e7%bd%ae%e7%9b%b8%e5%ba%94%e7%9a%84%e7%8e%af%e5%a2%83 class=header-mark></a>2 2.配置相应的环境</h2><blockquote><p>以下操作在所有节点配置</p></blockquote><p>2.1 新建用户</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1>## all</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>xdl@admin<span class=o>]</span> ~$ sudo useradd -G wheel ceph                        
+</span></span><span class=line><span class=cl><span class=o>[</span>xdl@admin<span class=o>]</span> ~$ <span class=nb>echo</span> <span class=s1>&#39;ceph&#39;</span> <span class=p>|</span>sudo passwd --stdin ceph
+</span></span></code></pre></td></tr></table></div></div><p>2.2 修改hosts</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@admin ~<span class=o>]</span>$ sudo vim /etc/hosts
+</span></span><span class=line><span class=cl><span class=c1># Ceph</span>
+</span></span><span class=line><span class=cl>10.10.10.60 admin
+</span></span><span class=line><span class=cl>10.10.10.61 node1
+</span></span><span class=line><span class=cl>10.10.10.62 node2
+</span></span><span class=line><span class=cl>10.10.10.63 node3
+</span></span><span class=line><span class=cl>10.10.10.64 client
+</span></span></code></pre></td></tr></table></div></div><p>2.3 配置时间同步</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@admin<span class=o>]</span> ~$ vim /etc/chrony.conf
+</span></span><span class=line><span class=cl>server ntp.aliyun.com iburst
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@admin<span class=o>]</span> ~$ systemctl restart chronyd.service
+</span></span><span class=line><span class=cl><span class=o>[</span>root@admin<span class=o>]</span> ~$ chronyc sources -v
+</span></span></code></pre></td></tr></table></div></div><p>2.4 配置admin节点与各node节点的ssh免密登录</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1>## admin</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>xdl@admin<span class=o>]</span> ~$ su - ceph
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin ~<span class=o>]</span>$ ssh-keygen -t rsa -b <span class=m>1024</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin ~<span class=o>]</span>$ ssh-copy-id ceph@node1
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin ~<span class=o>]</span>$ ssh-copy-id ceph@node2
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin ~<span class=o>]</span>$ ssh-copy-id ceph@node3
+</span></span></code></pre></td></tr></table></div></div><p>2.5 配置ceph 软件源</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@node1<span class=o>]</span> ~$ vim /etc/yum.repos.d/ceph.repo
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span>Ceph packages <span class=k>for</span> <span class=nv>$basearch</span>
+</span></span><span class=line><span class=cl><span class=nv>baseurl</span><span class=o>=</span>https://mirrors.cloud.tencent.com/ceph/rpm-nautilus/el7/<span class=nv>$basearch</span>
+</span></span><span class=line><span class=cl><span class=nv>enabled</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=nv>priority</span><span class=o>=</span><span class=m>2</span>
+</span></span><span class=line><span class=cl><span class=nv>gpgcheck</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=nv>gpgkey</span><span class=o>=</span>https://mirrors.cloud.tencent.com/ceph/keys/release.asc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph-noarch<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span>Ceph noarch packages
+</span></span><span class=line><span class=cl><span class=nv>baseurl</span><span class=o>=</span>https://mirrors.cloud.tencent.com/ceph/rpm-nautilus/el7/noarch
+</span></span><span class=line><span class=cl><span class=nv>enabled</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=nv>priority</span><span class=o>=</span><span class=m>2</span>
+</span></span><span class=line><span class=cl><span class=nv>gpgcheck</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=nv>gpgkey</span><span class=o>=</span>https://mirrors.cloud.tencent.com/ceph/keys/release.asc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph-source<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span>Ceph <span class=nb>source</span> packages
+</span></span><span class=line><span class=cl><span class=nv>baseurl</span><span class=o>=</span>https://mirrors.cloud.tencent.com/ceph/rpm-nautilus/el7/SRPMS
+</span></span><span class=line><span class=cl><span class=nv>enabled</span><span class=o>=</span><span class=m>0</span>
+</span></span><span class=line><span class=cl><span class=nv>priority</span><span class=o>=</span><span class=m>2</span>
+</span></span><span class=line><span class=cl><span class=nv>gpgcheck</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=nv>gpgkey</span><span class=o>=</span>https://mirrors.cloud.tencent.com/ceph/keys/release.as
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@node1<span class=o>]</span> ~$ yum makecache
+</span></span></code></pre></td></tr></table></div></div><h1 id=二安装配置 class=headerLink><a href=#%e4%ba%8c%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae class=header-mark></a>二、安装配置</h1><h2 id=admin管理节点配置 class=headerLink><a href=#admin%e7%ae%a1%e7%90%86%e8%8a%82%e7%82%b9%e9%85%8d%e7%bd%ae class=header-mark></a>1 admin管理节点配置</h2><ol><li>安装ceph-deploy</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@admin<span class=o>]</span> ~$ yum search ceph
+</span></span><span class=line><span class=cl><span class=o>[</span>root@admin<span class=o>]</span> ~$ yum install -y ceph-deploy python-setuptools
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>创建节点node1</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@admin<span class=o>]</span> ~$ su - ceph
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin ~<span class=o>]</span>$ mkdir cluster
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin ~<span class=o>]</span>$ <span class=nb>cd</span> cluster/
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ceph-deploy new node1
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ls
+</span></span><span class=line><span class=cl>ceph.conf  ceph-deploy-ceph.log  ceph.mon.keyring
+</span></span></code></pre></td></tr></table></div></div><h2 id=node1节点配置 class=headerLink><a href=#node1%e8%8a%82%e7%82%b9%e9%85%8d%e7%bd%ae class=header-mark></a>2 node1节点配置</h2><ol><li>安装软件包</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@node1<span class=o>]</span> ~$ yum makecache
+</span></span><span class=line><span class=cl><span class=o>[</span>root@node1<span class=o>]</span> ~$ yum install -y ceph ceph-radosgw
+</span></span><span class=line><span class=cl><span class=o>[</span>root@node1<span class=o>]</span> ~$ ceph --version
+</span></span><span class=line><span class=cl>ceph version 14.2.16 <span class=o>(</span>762032d6f509d5e7ee7dc008d80fe9c87086603c<span class=o>)</span> nautilus <span class=o>(</span>stable<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>配置mon 和 mgr</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 初始化mon; admin节点以ceph用户执行</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ceph-deploy mon create-initial
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 赋予各个节点使用命令免密码权限</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ceph-deploy admin node1 node2 node3
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装ceph-mgr,只有luminous源才有，为dashboard做准备</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ceph-deploy mgr create node1
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li>添加osd</li></ol><p>各个节点提供的存储空间不能太小，最好5G以上, /dev/sdb 是为osd 准备的空闲磁盘（无需格式化）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ceph-deploy osd create --data /dev/sdb node1
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ceph-deploy osd create --data /dev/sdb node2
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ceph-deploy osd create --data /dev/sdb node3
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ssh node1 lsblk -f
+</span></span></code></pre></td></tr></table></div></div><ol start=4><li>查看ceph 的状态</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ssh node1 sudo ceph -s
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload data-src=https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118181739086.png data-srcset="https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118181739086.png, https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118181739086.png 1.5x, https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118181739086.png 2x" data-sizes=auto alt=https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118181739086.png title=image-20210118181739086></p><h2 id=dashboard配置 class=headerLink><a href=#dashboard%e9%85%8d%e7%bd%ae class=header-mark></a>3 Dashboard配置</h2><ol><li>创建node1管理密钥</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@node1 ~<span class=o>]</span>$ sudo ceph auth get-or-create mgr.node1 mon <span class=s1>&#39;allow profile mgr&#39;</span> osd <span class=s1>&#39;allow *&#39;</span> mds <span class=s1>&#39;allow *&#39;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>mgr.node1<span class=o>]</span>
+</span></span><span class=line><span class=cl>	<span class=nv>key</span> <span class=o>=</span> <span class=nv>AQB2RAVgLC29BhAABkyYcjDyrjShJ1C9N2hlaQ</span><span class=o>==</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>开启ceph-mgr 管理域</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@node1 ~<span class=o>]</span>$ sudo ceph-mgr -i node1
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li>查看ceph 的状态，确认mgr 的状态为 active</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@node1 ~<span class=o>]</span>$ sudo ceph status
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload data-src=https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118182037802.png data-srcset="https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118182037802.png, https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118182037802.png 1.5x, https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118182037802.png 2x" data-sizes=auto alt=https://pengshp.coding.net/p/images/d/images/git/raw/master/image-20210118182037802.png title=image-20210118182037802></p><ol start=4><li>打开 dashboard 模块</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@node1 ~<span class=o>]</span>$ sudo ceph mgr module <span class=nb>enable</span> dashboard
+</span></span></code></pre></td></tr></table></div></div><ol start=5><li>绑定开启dashboard 模块的 ceph-mgr 节点的IP地址</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@node1 ~<span class=o>]</span>$ sudo ceph config-key <span class=nb>set</span> mgr/dashboard/node1/server_addr 10.10.10.61
+</span></span><span class=line><span class=cl><span class=nb>set</span> mgr/dashboard/node1/server_addr
+</span></span></code></pre></td></tr></table></div></div><ol start=6><li>查看监听端口</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@node1 ~<span class=o>]</span>$ sudo netstat -antp <span class=p>|</span>grep <span class=m>7000</span>
+</span></span><span class=line><span class=cl>tcp        <span class=m>0</span>      <span class=m>0</span> 10.10.10.61:7000        0.0.0.0:*      LISTEN      12994/ceph-mgr
+</span></span></code></pre></td></tr></table></div></div><p>浏览器访问： http://10.10.10.61:7000</p><h2 id=客户端的使用 class=headerLink><a href=#%e5%ae%a2%e6%88%b7%e7%ab%af%e7%9a%84%e4%bd%bf%e7%94%a8 class=header-mark></a>4 客户端的使用</h2><p>客户端需要更新内核版本到4.x以上</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>xdl@client<span class=o>]</span> ~$ uname -r
+</span></span><span class=line><span class=cl>5.10.8-1.el7.elrepo.x86_64
+</span></span></code></pre></td></tr></table></div></div><ol><li>安装软件</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>root@client<span class=o>]</span> ~$ yum makecache
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@client<span class=o>]</span> ~$ yum install -y python-setuptools
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>root@client<span class=o>]</span> ~$ su - ceph
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ sudo yum install -y ceph ceph-radosgw
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ ceph --version
+</span></span><span class=line><span class=cl>ceph version 14.2.16 <span class=o>(</span>762032d6f509d5e7ee7dc008d80fe9c87086603c<span class=o>)</span> nautilus <span class=o>(</span>stable<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>在admin节点赋予client使用命令免权限</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@admin cluster<span class=o>]</span>$ ceph-deploy admin client
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li>修改client下该文件呢的读权限</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ sudo chmod +r /etc/ceph/ceph.client.admin.keyring
+</span></span></code></pre></td></tr></table></div></div><ol start=4><li>修改client 的ceph 配置文件，这一步是解决映射镜像时出错问题</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ sudo vim /etc/ceph/ceph.conf
+</span></span><span class=line><span class=cl><span class=o>[</span>global<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>rbd_default_features</span> <span class=o>=</span> <span class=m>1</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=5><li>client 节点创建块设备镜像，单位为MB</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ rbd create foo --size <span class=m>4096</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=6><li>client 节点映射镜像到主机</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ sudo rbd map foo --name client.admin
+</span></span><span class=line><span class=cl>/dev/rbd0
+</span></span></code></pre></td></tr></table></div></div><ol start=7><li>client 节点格式化块设备</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ sudo mkfs -t ext4 -m <span class=m>0</span> /dev/rbd/rbd/foo
+</span></span></code></pre></td></tr></table></div></div><ol start=8><li>client 节点挂载块设备</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ sudo mkdir /mnt/ceph
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ sudo mount /dev/rbd/rbd/foo /mnt/ceph/
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ df -lhT
+</span></span><span class=line><span class=cl>文件系统       类型      容量  已用  可用 已用% 挂载点
+</span></span><span class=line><span class=cl>/dev/rbd0      ext4      3.9G   16M  3.8G    1% /mnt/ceph
+</span></span></code></pre></td></tr></table></div></div><p>客户端重启后，设备需要重新做映射（6），不然会卡死</p><ol start=9><li>测试</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>ceph@client ~<span class=o>]</span>$ <span class=nb>cd</span> /mnt/ceph/
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@client ceph<span class=o>]</span>$ sudo touch test.txt
+</span></span><span class=line><span class=cl><span class=o>[</span>ceph@client ceph<span class=o>]</span>$ ls
+</span></span><span class=line><span class=cl>lost+found  test.txt
+</span></span></code></pre></td></tr></table></div></div></div><div class=sponsor><div class=sponsor-avatar><img class=lazyload data-src data-srcset=",  1.5x,  2x" data-sizes=auto alt title></div><p class=sponsor-bio><em>如果你觉得这篇文章对你有所帮助，欢迎赞赏~</em></p><a href=https://www.buymeacoffee.com/pengshp3 title=Sponsor target=_blank class=sponsor-button rel="noopener noreferrer"><i class="far fa-heart fa-fw icon" style=color:#ec6cb9></i>
+<span>赞赏</span></a></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2020-08-18</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://blog.hellolinux.cc/2020/cephfs-setup/ data-title="Ceph 分布式系统搭建" data-via=pengshp data-hashtags=Linux><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://blog.hellolinux.cc/2020/cephfs-setup/ data-hashtag=Linux><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://blog.hellolinux.cc/2020/cephfs-setup/ data-title="Ceph 分布式系统搭建" data-ralateuid=xxxx><i class="fab fa-weibo fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Evernote" data-sharer=evernote data-url=https://blog.hellolinux.cc/2020/cephfs-setup/ data-title="Ceph 分布式系统搭建"><i class="fab fa-evernote fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Telegram" data-sharer=telegram data-url=https://blog.hellolinux.cc/2020/cephfs-setup/ data-title="Ceph 分布式系统搭建" data-web><i class="fab fa-telegram-plane fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/linux/>Linux</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/2020/cephfs-info/ class=prev rel=prev title="Ceph 分布式文件系统简介"><i class="fas fa-angle-left fa-fw"></i>Ceph 分布式文件系统简介</a>
+<a href=/2020/linux-tinyproxy-config/ class=next rel=next title=Linux配置Tinyproxy代理>Linux配置Tinyproxy代理<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=gitalk class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://github.com/gitalk/gitalk></a>Gitalk</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2016 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://github.com/pengshp target=_blank rel="noopener noreferrer">pengshp</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div><div class=footer-line></div><div class=footer-line></div></div><script>"serviceWorker"in navigator&&(navigator.serviceWorker.register("/sw.min.js",{scope:"/"}).then(function(){}),navigator.serviceWorker.ready.then(function(){}))</script></footer></div><div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw"></i></a></div><div class=assets><script type=text/javascript src=/lib/autocomplete/autocomplete.min.e9b4c0b7cbc185698966f352caee9cb7f89be3bcc924616599af74886f910d12.js integrity="sha256-6bTAt8vBhWmJZvNSyu6ct/ib47zJJGFlma90iG+RDRI="></script><script type=text/javascript src=/lib/fuse/fuse.min.d3e13f020a1205ff114005e71493513b696e4a7a3b88229e6ec2c36d34b61d75.js integrity="sha256-0+E/AgoSBf8RQAXnFJNRO2luSno7iCKebsLDbTS2HXU="></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script type=text/javascript src=/lib/tablesort/tablesort.min.92de6dec051677787aed63503575b2f9be73f21f2745574e59647bc139a92d40.js integrity="sha256-kt5t7AUWd3h67WNQNXWy+b5z8h8nRVdOWWR7wTmpLUA="></script><script type=text/javascript src=/lib/topbar/topbar.min.e4f7cfd8532854ae8dae29c39bff2371fa2576c07dd638634135f68482c3afc5.js integrity="sha256-5PfP2FMoVK6NrinDm/8jcfoldsB91jhjQTX2hILDr8U="></script><script type=text/javascript src=/lib/pjax/pjax.min.dad2dd7a35adf0b10fafaa0376f305c226578ddb3d26472aba131a82c4a9828e.js integrity="sha256-2tLdejWt8LEPr6oDdvMFwiZXjds9JkcquhMagsSpgo4="></script><script type=text/javascript src=/js/theme.min.js defer></script></div><div class=pjax-assets><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{gitalk:{admin:["pengshp"],clientID:"${{ secrets.GITALK_CLIENT_ID }}",clientSecret:"${{ secrets.GITALK_CLIENT_SECRET }}",id:"2020-08-18T17:49:08Z",owner:"pengshp",repo:"pengshp.github.io",title:"Ceph 分布式系统搭建"}},data:{"desktop-header-typeit":"Neal's Blog","mobile-header-typeit":"Neal's Blog"},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/index.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!0,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:50,threshold:.1,type:"fuse",useExtendedSearch:!1},sharerjs:!0,table:{sort:!0},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:-1,speed:200}}</script><script type=text/javascript src=/lib/gitalk/gitalk.min.3e68fce688cb68f396c11b65309c267b307f420f01cef269e5e4f3bd769801f0.js integrity="sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="></script><script type=text/javascript src=/js/gitalk.min.js defer></script><script type=text/javascript src=/lib/clipboard/clipboard.min.11be927cda59c8b6019ebbea838285c5beaf21183ea4b83dbd4e4fbf9413ce4a.js integrity="sha256-Eb6SfNpZyLYBnrvqg4KFxb6vIRg+pLg9vU5Pv5QTzko="></script><script type=text/javascript src=/lib/sharer/sharer.min.8fe10eb615eb163a20f795484430a012805ec7c8c11df52df54ddb7a46084254.js integrity="sha256-j+EOthXrFjog95VIRDCgEoBex8jBHfUt9U3bekYIQlQ="></script><script type=text/javascript src=/lib/typeit/typeit.min.491c13689db70b6adb3176a9a792644be7578a2f931521f5cb199d313a21c359.js integrity="sha256-SRwTaJ23C2rbMXapp5JkS+dXii+TFSH1yxmdMTohw1k="></script><link rel=stylesheet href=/lib/gitalk/gitalk.min.e1f973627089fc121272c24d146e7c52e316a203fcb362eb2f648d803fc0d327.css integrity="sha256-4flzYnCJ/BIScsJNFG58UuMWogP8s2LrL2SNgD/A0yc="></div></body></html>

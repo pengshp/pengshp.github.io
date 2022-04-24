@@ -1,0 +1,250 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title class=pjax-title>树莓派Archlinux Arm 基本配置教程 - Neal's Blog</title><meta name=Description content="分享技术，记录生活!"><meta property="og:title" content="树莓派Archlinux Arm 基本配置教程"><meta property="og:description" content="本文主要介绍在树莓派上配置Ａrchlinux系统，因为Ａrchlinux是精简安装，所以安装完后要做一些基本的配置和优化。可根据自己的需要进行配置，这里是我的配置记录，可供参考。"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.hellolinux.cc/2017/archlinux-arm-config/"><meta property="og:image" content="https://blog.hellolinux.cc/images/logo.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2017-11-11T11:50:25+00:00"><meta property="article:modified_time" content="2017-11-11T11:50:25+00:00"><meta property="og:site_name" content="Neal's Blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.hellolinux.cc/images/logo.jpg"><meta name=twitter:title content="树莓派Archlinux Arm 基本配置教程"><meta name=twitter:description content="本文主要介绍在树莓派上配置Ａrchlinux系统，因为Ａrchlinux是精简安装，所以安装完后要做一些基本的配置和优化。可根据自己的需要进行配置，这里是我的配置记录，可供参考。"><meta name=application-name content="Neal's Blog"><meta name=apple-mobile-web-app-title content="Neal's Blog"><meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=https://simpleicons.org/icons/linux.svg><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.hellolinux.cc/2017/archlinux-arm-config/><link rel=prev href=https://blog.hellolinux.cc/2017/centos-config-mariadb/><link rel=next href=https://blog.hellolinux.cc/2017/alpine-basic-config/><link rel=stylesheet href=/lib/normalize/normalize.min.055364f5be272caa092b0e6654c165828707f8ab971e2656383a6d6392bc345e.css integrity="sha256-BVNk9b4nLKoJKw5mVMFlgocH+KuXHiZWODptY5K8NF4="><link rel=stylesheet href=/css/style.min.8d562f729248093252213c90d851344c0d1f4d574cb940d1b87af31dbbc7294a.css integrity="sha256-jVYvcpJICTJSITyQ2FE0TA0fTVdMuUDRuHrzHbvHKUo="><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/fontawesome-free/all.min.43202d5486e011f9684a17bd6846b5c16a2619002bfc783f7e32e20dfb6bf857.css integrity="sha256-QyAtVIbgEfloShe9aEa1wWomGQAr/Hg/fjLiDftr+Fc="><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.43202d5486e011f9684a17bd6846b5c16a2619002bfc783f7e32e20dfb6bf857.css integrity="sha256-QyAtVIbgEfloShe9aEa1wWomGQAr/Hg/fjLiDftr+Fc="></noscript><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="><noscript><link rel=stylesheet href=/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"树莓派Archlinux Arm 基本配置教程","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.hellolinux.cc\/2017\/archlinux-arm-config\/"},"image":[{"@type":"ImageObject","url":"https:\/\/blog.hellolinux.cc\/images\/Apple-Devices-Preview.webp","width":3200,"height":2048}],"genre":"posts","keywords":"Linux, RaspberryPi","wordcount":1031,"url":"https:\/\/blog.hellolinux.cc\/2017\/archlinux-arm-config\/","datePublished":"2017-11-11T11:50:25+00:00","dateModified":"2017-11-11T11:50:25+00:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Neal","logo":"https:\/\/blog.hellolinux.cc\/images\/avatar-me.webp"},"authors":[{"@type":"Person","name":"Neal"}],"description":""}</script></head><body header-desktop=normal header-mobile=auto><script type=text/javascript>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark")}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(t){const e=document.getElementsByTagName("meta");for(let n=0;n<e.length;n++)if(e[n].getAttribute("name")===t)return e[n];return''}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"||e==="black"?setTheme(e):window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?setTheme("dark"):setTheme("light")}else"auto"==="light"||"auto"==="dark"||"auto"==="black"?(setTheme("auto"),saveTheme("auto")):(saveTheme("auto"),window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?setTheme("dark"):setTheme("light"));let metaColors={light:"#f8f8f8",dark:"#252627",black:"#000000"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")]</script><div id=back-to-top></div><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Neal's Blog"><img class="lazyload logo" data-src=https://simpleicons.org/icons/linux.svg data-srcset="https://simpleicons.org/icons/linux.svg, https://simpleicons.org/icons/linux.svg 1.5x, https://simpleicons.org/icons/linux.svg 2x" data-sizes=auto alt=https://simpleicons.org/icons/linux.svg title=https://simpleicons.org/icons/linux.svg><span class=header-title-pre><i class="far fa-edit fa-fw"></i></span><span id=desktop-header-typeit class=typeit></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/ title=返回首页>首页|Home </a><a class=menu-item href=/posts/>归档|Archive </a><a class=menu-item href=/categories/ title=分类>分类|Categories </a><a class=menu-item href=/tags/ title=标签>标签|Tags </a><a class=menu-item href=/about/ title=关于>关于|About </a><span class="menu-item delimiter"></span><a href=# onclick=return!1 class="menu-item language" title=选择语言>中文<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select title="Select Language" id=language-select-desktop onchange="location=this.value"><option value=/2017/archlinux-arm-config/ selected>中文</option></select>
+</a><span class="menu-item search" id=search-desktop><input type=text placeholder=Search... id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw"></i></a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
+</span><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题><i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-desktop title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Neal's Blog"><img class="lazyload logo" data-src=https://simpleicons.org/icons/linux.svg data-srcset="https://simpleicons.org/icons/linux.svg, https://simpleicons.org/icons/linux.svg 1.5x, https://simpleicons.org/icons/linux.svg 2x" data-sizes=auto alt=https://simpleicons.org/icons/linux.svg title=https://simpleicons.org/icons/linux.svg><span class=header-title-pre><i class="far fa-edit fa-fw"></i></span><span id=mobile-header-typeit class=typeit></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=Search... id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw"></i></a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/ title=返回首页>首页|Home</a><a class=menu-item href=/posts/ title>归档|Archive</a><a class=menu-item href=/categories/ title=分类>分类|Categories</a><a class=menu-item href=/tags/ title=标签>标签|Tags</a><a class=menu-item href=/about/ title=关于>关于|About</a><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-mobile title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a><a href=# onclick=return!1 class=menu-item title=选择语言>中文<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select title="Select Language" onchange="location=this.value"><option value=/2017/archlinux-arm-config/ selected>中文</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#一基本配置>一.基本配置</a><ul><li><a href=#配置网络>配置网络</a></li><li><a href=#1更新系统>1.更新系统</a></li><li><a href=#2更新时区>2.更新时区</a></li><li><a href=#3把用户加入用户组>3.把用户加入用户组</a></li><li><a href=#４安装中文字体>４.安装中文字体</a></li><li><a href=#５基本开发环境>５.基本开发环境</a></li><li><a href=#６安装python3>６.安装Python3</a></li><li><a href=#７系统监测>７.系统监测</a></li></ul></li><li><a href=#二安装桌面环境>二.安装桌面环境</a><ul><li><a href=#1安装基本组建>1.安装基本组建</a></li><li><a href=#2安装桌面服务>2.安装桌面服务</a></li><li><a href=#3安装音视频相关驱动>3.安装音视频相关驱动</a></li><li><a href=#4安装mate桌面环境>4.安装mate桌面环境</a></li><li><a href=#5安装管理器启动器>5.安装管理器，启动器</a></li><li><a href=#6修改配置文件>6.修改配置文件</a></li><li><a href=#7关机重启>7.关机重启</a></li></ul></li><li><a href=#三进阶配置>三.进阶配置</a><ul><li><a href=#1安装fcitx输入法>1.安装fcitx输入法</a></li><li><a href=#2安装火狐浏览器>2.安装火狐浏览器</a></li><li><a href=#3设置中文环境>3.设置中文环境</a></li><li><a href=#4音频设置>4.音频设置</a></li><li><a href=#5安装zsh>5.安装zsh</a></li></ul></li><li><a href=#6-使用yay管理-aur>6. 使用yay管理 AUR</a></li><li><a href=#7-安装中文man_page>7. 安装中文man_page</a></li></ul></li></ul></li></ul></nav></div></div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">树莓派Archlinux Arm 基本配置教程</h1><div class=post-meta><div class=post-meta-line><span class=post-author><span class=author><i class="author fas fa-user-circle fa-fw"></i><span class=screen-reader-text> </span><a href=https://blog.hellolinux.cc/authors/neal>Neal</a></span>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/linux/><i class="far fa-folder fa-fw"></i>Linux</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2017-11-11>2017-11-11</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2017-11-11>2017-11-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1031 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#一基本配置>一.基本配置</a><ul><li><a href=#配置网络>配置网络</a></li><li><a href=#1更新系统>1.更新系统</a></li><li><a href=#2更新时区>2.更新时区</a></li><li><a href=#3把用户加入用户组>3.把用户加入用户组</a></li><li><a href=#４安装中文字体>４.安装中文字体</a></li><li><a href=#５基本开发环境>５.基本开发环境</a></li><li><a href=#６安装python3>６.安装Python3</a></li><li><a href=#７系统监测>７.系统监测</a></li></ul></li><li><a href=#二安装桌面环境>二.安装桌面环境</a><ul><li><a href=#1安装基本组建>1.安装基本组建</a></li><li><a href=#2安装桌面服务>2.安装桌面服务</a></li><li><a href=#3安装音视频相关驱动>3.安装音视频相关驱动</a></li><li><a href=#4安装mate桌面环境>4.安装mate桌面环境</a></li><li><a href=#5安装管理器启动器>5.安装管理器，启动器</a></li><li><a href=#6修改配置文件>6.修改配置文件</a></li><li><a href=#7关机重启>7.关机重启</a></li></ul></li><li><a href=#三进阶配置>三.进阶配置</a><ul><li><a href=#1安装fcitx输入法>1.安装fcitx输入法</a></li><li><a href=#2安装火狐浏览器>2.安装火狐浏览器</a></li><li><a href=#3设置中文环境>3.设置中文环境</a></li><li><a href=#4音频设置>4.音频设置</a></li><li><a href=#5安装zsh>5.安装zsh</a></li></ul></li><li><a href=#6-使用yay管理-aur>6. 使用yay管理 AUR</a></li><li><a href=#7-安装中文man_page>7. 安装中文man_page</a></li></ul></li></ul></li></ul></nav></div></div><div class=content id=content><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fwwarning"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>本文最后更新于 <span class=timeago datetime=2017-11-11T11:50:25 title="November 11, 2017">2017-11-11</span>，文中内容可能已过时。</div></div></div><p>本文主要介绍在树莓派上配置Ａrchlinux系统，因为Ａrchlinux是精简安装，所以安装完后要做一些基本的配置和优化。可根据自己的需要进行配置，这里是我的配置记录，可供参考。</p><h4 id=一基本配置 class=headerLink><a href=#%e4%b8%80%e5%9f%ba%e6%9c%ac%e9%85%8d%e7%bd%ae class=header-mark></a>0.0.1 一.基本配置</h4><h5 id=配置网络 class=headerLink><a href=#%e9%85%8d%e7%bd%ae%e7%bd%91%e7%bb%9c class=header-mark></a>0.0.1.1 配置网络</h5><ol><li>有线网络</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 有线网络</span>
+</span></span><span class=line><span class=cl>~$ sudo vim /etc/systemd/network/20-wired.network
+</span></span><span class=line><span class=cl><span class=o>[</span>Match<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>Name</span><span class=o>=</span>eth0  <span class=c1># w</span>
+</span></span><span class=line><span class=cl><span class=nv>Type</span><span class=o>=</span>ether
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>Network<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>DHCP</span><span class=o>=</span>yes
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>## 静态IP</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>Network<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>Address</span><span class=o>=</span>10.1.10.9/24
+</span></span><span class=line><span class=cl><span class=nv>Gateway</span><span class=o>=</span>10.1.10.1
+</span></span><span class=line><span class=cl><span class=nv>DNS</span><span class=o>=</span>10.1.10.1
+</span></span><span class=line><span class=cl><span class=c1>#DNS=8.8.8.8</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启动网络服务</span>
+</span></span><span class=line><span class=cl>~$ sudo systemctl <span class=nb>enable</span> --now systemd-networkd.service
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>无线网络wlan</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 安装包</span>
+</span></span><span class=line><span class=cl>$ pacman -S wireless_tools dialog libnl wpa_supplicant
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># SSID PASSWD</span>
+</span></span><span class=line><span class=cl>~$ wpa_passphrase HUAWEI <span class=m>12345678</span>
+</span></span><span class=line><span class=cl><span class=nv>network</span><span class=o>={</span>
+</span></span><span class=line><span class=cl>        <span class=nv>ssid</span><span class=o>=</span><span class=s2>&#34;HUAWEI&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=c1>#psk=&#34;12345678&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nv>psk</span><span class=o>=</span>3a0da8cfedc18f6d7d8c61427378d2a9b1348b3541055535cc
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>~$ sudo vim /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+</span></span><span class=line><span class=cl><span class=nv>ctrl_interface</span><span class=o>=</span>/var/run/wpa_supplicant
+</span></span><span class=line><span class=cl><span class=nv>ctrl_interface_group</span><span class=o>=</span>wheel
+</span></span><span class=line><span class=cl><span class=nv>update_config</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=nv>fast_reauth</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=nv>ap_scan</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=nv>network</span><span class=o>={</span>
+</span></span><span class=line><span class=cl>        <span class=nv>ssid</span><span class=o>=</span><span class=s2>&#34;HUAWEI&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=c1>#psk=&#34;12345678&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nv>psk</span><span class=o>=</span>3a0da8cfedc18f6d7d8c61427378d2a9b1348b3541055535cc
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>~$ sudo systemctl <span class=nb>enable</span> --now wpa_supplicant@wlan0.service
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>~$ sudo vim /etc/systemd/network/25-wireless.network
+</span></span><span class=line><span class=cl><span class=o>[</span>Match<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>Name</span><span class=o>=</span>wlan0 <span class=c1># 网卡名</span>
+</span></span><span class=line><span class=cl><span class=nv>Type</span><span class=o>=</span>wlan
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>Network<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>DHCP</span><span class=o>=</span>yes
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>~$ sudo systemctl <span class=nb>enable</span> --now systemd-networkd.service
+</span></span></code></pre></td></tr></table></div></div><h5 id=1更新系统 class=headerLink><a href=#1%e6%9b%b4%e6%96%b0%e7%b3%bb%e7%bb%9f class=header-mark></a>0.0.1.2 1.更新系统</h5><pre><code>sudo pacman -Syu
+</code></pre><h5 id=2更新时区 class=headerLink><a href=#2%e6%9b%b4%e6%96%b0%e6%97%b6%e5%8c%ba class=header-mark></a>0.0.1.3 2.更新时区</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>timedatectl set-timezone Asia/ShangHai
+</span></span></code></pre></td></tr></table></div></div><h5 id=3把用户加入用户组 class=headerLink><a href=#3%e6%8a%8a%e7%94%a8%e6%88%b7%e5%8a%a0%e5%85%a5%e7%94%a8%e6%88%b7%e7%bb%84 class=header-mark></a>0.0.1.4 3.把用户加入用户组</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>pacman -S sudo
+</span></span></code></pre></td></tr></table></div></div><p>nano /etc/sudoers
+添加</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 执行sudo 时不需要输入密码</span>
+</span></span><span class=line><span class=cl>%wheel <span class=nv>ALL</span><span class=o>=(</span>ALL<span class=o>)</span> NOPASSWD: ALL
+</span></span></code></pre></td></tr></table></div></div><h5 id=４安装中文字体 class=headerLink><a href=#%ef%bc%94%e5%ae%89%e8%a3%85%e4%b8%ad%e6%96%87%e5%ad%97%e4%bd%93 class=header-mark></a>0.0.1.5 ４.安装中文字体</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装思源黑体字体</span>
+</span></span><span class=line><span class=cl>~$ sudo pacman -S adobe-source-han-sans-cn-fonts
+</span></span></code></pre></td></tr></table></div></div><h5 id=５基本开发环境 class=headerLink><a href=#%ef%bc%95%e5%9f%ba%e6%9c%ac%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83 class=header-mark></a>0.0.1.6 ５.基本开发环境</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>~$ sudo pacman -Sy  git vim
+</span></span><span class=line><span class=cl>~$ sudo pacman -Sy tldr
+</span></span><span class=line><span class=cl>~$ sudo pacman -Sy bat tree
+</span></span></code></pre></td></tr></table></div></div><h5 id=６安装python3 class=headerLink><a href=#%ef%bc%96%e5%ae%89%e8%a3%85python3 class=header-mark></a>0.0.1.7 ６.安装Python3</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>sudo pacman -S python python-pip ipython
+</span></span></code></pre></td></tr></table></div></div><h5 id=７系统监测 class=headerLink><a href=#%ef%bc%97%e7%b3%bb%e7%bb%9f%e7%9b%91%e6%b5%8b class=header-mark></a>0.0.1.8 ７.系统监测</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>sudo pacman -S htop neofetch
+</span></span></code></pre></td></tr></table></div></div><h4 id=二安装桌面环境 class=headerLink><a href=#%e4%ba%8c%e5%ae%89%e8%a3%85%e6%a1%8c%e9%9d%a2%e7%8e%af%e5%a2%83 class=header-mark></a>0.0.2 二.安装桌面环境</h4><h5 id=1安装基本组建 class=headerLink><a href=#1%e5%ae%89%e8%a3%85%e5%9f%ba%e6%9c%ac%e7%bb%84%e5%bb%ba class=header-mark></a>0.0.2.1 1.安装基本组建</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>sudo pacman -S base-devel
+</span></span></code></pre></td></tr></table></div></div><h5 id=2安装桌面服务 class=headerLink><a href=#2%e5%ae%89%e8%a3%85%e6%a1%8c%e9%9d%a2%e6%9c%8d%e5%8a%a1 class=header-mark></a>0.0.2.2 2.安装桌面服务</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>sudo pacman -S xorg-xinit xorg-server xorg-utils xorg-server-utils
+</span></span></code></pre></td></tr></table></div></div><h5 id=3安装音视频相关驱动 class=headerLink><a href=#3%e5%ae%89%e8%a3%85%e9%9f%b3%e8%a7%86%e9%a2%91%e7%9b%b8%e5%85%b3%e9%a9%b1%e5%8a%a8 class=header-mark></a>0.0.2.3 3.安装音视频相关驱动</h5><pre><code>sudo pacman -S xf86-video-fbdev xf86-video-vesa
+</code></pre><h5 id=4安装mate桌面环境 class=headerLink><a href=#4%e5%ae%89%e8%a3%85mate%e6%a1%8c%e9%9d%a2%e7%8e%af%e5%a2%83 class=header-mark></a>0.0.2.4 4.安装mate桌面环境</h5><pre><code>sudo pacman -S mate mate-extra
+</code></pre><h5 id=5安装管理器启动器 class=headerLink><a href=#5%e5%ae%89%e8%a3%85%e7%ae%a1%e7%90%86%e5%99%a8%e5%90%af%e5%8a%a8%e5%99%a8 class=header-mark></a>0.0.2.5 5.安装管理器，启动器</h5><pre><code>pacman -S openbox lxde gamin dbus mesa
+</code></pre><h5 id=6修改配置文件 class=headerLink><a href=#6%e4%bf%ae%e6%94%b9%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6 class=header-mark></a>0.0.2.6 6.修改配置文件</h5><p>添加如下内容</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo vim ~/.xinitrc
+</span></span><span class=line><span class=cl><span class=nb>exec</span> mate-session
+</span></span></code></pre></td></tr></table></div></div><h5 id=7关机重启 class=headerLink><a href=#7%e5%85%b3%e6%9c%ba%e9%87%8d%e5%90%af class=header-mark></a>0.0.2.7 7.关机重启</h5><p>开机启动后登陆输入<strong>startx</strong>便可以进入mate桌面环境。到此桌面环境配置完成了。</p><h4 id=三进阶配置 class=headerLink><a href=#%e4%b8%89%e8%bf%9b%e9%98%b6%e9%85%8d%e7%bd%ae class=header-mark></a>0.0.3 三.进阶配置</h4><h5 id=1安装fcitx输入法 class=headerLink><a href=#1%e5%ae%89%e8%a3%85fcitx%e8%be%93%e5%85%a5%e6%b3%95 class=header-mark></a>0.0.3.1 1.安装fcitx输入法</h5><pre><code>sudo pacman -S fcitx fcitx-sunpinyin fcitx-configtool
+</code></pre><p>编辑<code>~/.xinitrc</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ vim ~/.xinitrc
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>LANG</span><span class=o>=</span>zh_CN.UTF-8
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>XIM</span><span class=o>=</span>fcitx
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>XMODIFIERS</span><span class=o>=</span><span class=s2>&#34;@im=fcitx&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>GTK_IM_MODULE</span><span class=o>=</span>fcitx
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>QT_IM_MODULE</span><span class=o>=</span>fcitx
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>XIM_PROGRAM</span><span class=o>=</span>fcitx
+</span></span><span class=line><span class=cl>fcitx <span class=p>&amp;</span>
+</span></span></code></pre></td></tr></table></div></div><p>保存退出！</p><h5 id=2安装火狐浏览器 class=headerLink><a href=#2%e5%ae%89%e8%a3%85%e7%81%ab%e7%8b%90%e6%b5%8f%e8%a7%88%e5%99%a8 class=header-mark></a>0.0.3.2 2.安装火狐浏览器</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo pacman -S firefox firefox-i18n-zh-cn
+</span></span></code></pre></td></tr></table></div></div><h5 id=3设置中文环境 class=headerLink><a href=#3%e8%ae%be%e7%bd%ae%e4%b8%ad%e6%96%87%e7%8e%af%e5%a2%83 class=header-mark></a>0.0.3.3 3.设置中文环境</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo vim /etc/locale.conf
+</span></span><span class=line><span class=cl><span class=nv>LANG</span><span class=o>=</span>zh_CN.UTF-8
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># or</span>
+</span></span><span class=line><span class=cl>~$ localectl set-locale <span class=nv>LANG</span><span class=o>=</span>en_US.UTF-8
+</span></span><span class=line><span class=cl>~$ localectl status
+</span></span></code></pre></td></tr></table></div></div><h5 id=4音频设置 class=headerLink><a href=#4%e9%9f%b3%e9%a2%91%e8%ae%be%e7%bd%ae class=header-mark></a>0.0.3.4 4.音频设置</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ pacman -Sy alsa-utils alsa-firmware alsa-lib alsa-plugins
+</span></span></code></pre></td></tr></table></div></div><p>选择一个音频输出
+amixer cset numid=3 x</p><p>参数设置为：</p><blockquote><ul><li>0 自动</li><li>1 模拟输出</li><li>3 HDMI</li></ul></blockquote><h5 id=5安装zsh class=headerLink><a href=#5%e5%ae%89%e8%a3%85zsh class=header-mark></a>0.0.3.5 5.安装zsh</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>~$ sudo pacman -Sy zsh
+</span></span><span class=line><span class=cl>~$ sudo pacman -Sy community/zsh-completions
+</span></span><span class=line><span class=cl>~$ sudo pacman -Sy community/zsh-autosuggestions
+</span></span><span class=line><span class=cl>~$ sudo pacman -Sy community/zsh-syntax-highlighting
+</span></span><span class=line><span class=cl>~$ sudo pacman -Sy community/zsh-theme-powerlevel10k
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 设置alarm的默认shell为zsh</span>
+</span></span><span class=line><span class=cl>$ chsh -s /bin/zsh alarm
+</span></span></code></pre></td></tr></table></div></div><h4 id=6-使用yay管理-aur class=headerLink><a href=#6-%e4%bd%bf%e7%94%a8yay%e7%ae%a1%e7%90%86-aur class=header-mark></a>0.0.4 6. 使用yay管理 AUR</h4><ol><li>yay简介</li></ol><p><a href=https://github.com/Jguer/yay target=_blank rel="noopener noreffer">Jguer/yay: Yet another Yogurt - An AUR Helper written in Go (github.com)</a></p><p>yay使用go语言写的<code>yogurt</code>的替代品，用来管理AUR包,使用时不需要加<code>sudo</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># install yay</span>
+</span></span><span class=line><span class=cl>pacman -S --needed git base-devel
+</span></span><span class=line><span class=cl>git clone https://aur.archlinux.org/yay-bin.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> yay-bin
+</span></span><span class=line><span class=cl>makepkg -si
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>修改源</li></ol><p>修改的配置文件位于 <code>~/.config/yay/config.json</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>~$ yay --aururl <span class=s2>&#34;https://aur.tuna.tsinghua.edu.cn&#34;</span> --save
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># c</span>
+</span></span><span class=line><span class=cl>~$ yay -P -g
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li>基本使用</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ yay -Sy <span class=o>[</span>pkg<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=c1># 打印系统包信息</span>
+</span></span><span class=line><span class=cl>$ yay -Ps
+</span></span><span class=line><span class=cl><span class=c1># 清除未使用的依赖</span>
+</span></span><span class=line><span class=cl>$ yay -Yc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># install Google Noto font</span>
+</span></span><span class=line><span class=cl>~$ yay -Sy noto-fonts-sc
+</span></span><span class=line><span class=cl><span class=c1># install OSX fonts</span>
+</span></span><span class=line><span class=cl>~$ yay -Sy ttf-mac-fonts
+</span></span></code></pre></td></tr></table></div></div><h4 id=7-安装中文man_page class=headerLink><a href=#7-%e5%ae%89%e8%a3%85%e4%b8%ad%e6%96%87man_page class=header-mark></a>0.0.5 7. 安装中文man_page</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>~$ sudo pacman -Sy community/man-pages-zh_cn
+</span></span></code></pre></td></tr></table></div></div></div><div class=sponsor><div class=sponsor-avatar><img class=lazyload data-src data-srcset=",  1.5x,  2x" data-sizes=auto alt title></div><p class=sponsor-bio><em>如果你觉得这篇文章对你有所帮助，欢迎赞赏~</em></p><a href=https://www.buymeacoffee.com/pengshp3 title=Sponsor target=_blank class=sponsor-button rel="noopener noreferrer"><i class="far fa-heart fa-fw icon" style=color:#ec6cb9></i>
+<span>赞赏</span></a></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2017-11-11</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://blog.hellolinux.cc/2017/archlinux-arm-config/ data-title="树莓派Archlinux Arm 基本配置教程" data-via=pengshp data-hashtags=Linux,RaspberryPi><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://blog.hellolinux.cc/2017/archlinux-arm-config/ data-hashtag=Linux><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://blog.hellolinux.cc/2017/archlinux-arm-config/ data-title="树莓派Archlinux Arm 基本配置教程" data-ralateuid=xxxx><i class="fab fa-weibo fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Evernote" data-sharer=evernote data-url=https://blog.hellolinux.cc/2017/archlinux-arm-config/ data-title="树莓派Archlinux Arm 基本配置教程"><i class="fab fa-evernote fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Telegram" data-sharer=telegram data-url=https://blog.hellolinux.cc/2017/archlinux-arm-config/ data-title="树莓派Archlinux Arm 基本配置教程" data-web><i class="fab fa-telegram-plane fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/linux/>Linux</a>,&nbsp;<a href=/tags/raspberrypi/>RaspberryPi</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/2017/centos-config-mariadb/ class=prev rel=prev title="CentOS7 配置MariaDB数据库"><i class="fas fa-angle-left fa-fw"></i>CentOS7 配置MariaDB数据库</a>
+<a href=/2017/alpine-basic-config/ class=next rel=next title="Alpine 基本配置">Alpine 基本配置<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=gitalk class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://github.com/gitalk/gitalk></a>Gitalk</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2016 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://github.com/pengshp target=_blank rel="noopener noreferrer">pengshp</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div><div class=footer-line></div><div class=footer-line></div></div><script>"serviceWorker"in navigator&&(navigator.serviceWorker.register("/sw.min.js",{scope:"/"}).then(function(){}),navigator.serviceWorker.ready.then(function(){}))</script></footer></div><div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw"></i></a></div><div class=assets><script type=text/javascript src=/lib/autocomplete/autocomplete.min.e9b4c0b7cbc185698966f352caee9cb7f89be3bcc924616599af74886f910d12.js integrity="sha256-6bTAt8vBhWmJZvNSyu6ct/ib47zJJGFlma90iG+RDRI="></script><script type=text/javascript src=/lib/fuse/fuse.min.d3e13f020a1205ff114005e71493513b696e4a7a3b88229e6ec2c36d34b61d75.js integrity="sha256-0+E/AgoSBf8RQAXnFJNRO2luSno7iCKebsLDbTS2HXU="></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script type=text/javascript src=/lib/tablesort/tablesort.min.92de6dec051677787aed63503575b2f9be73f21f2745574e59647bc139a92d40.js integrity="sha256-kt5t7AUWd3h67WNQNXWy+b5z8h8nRVdOWWR7wTmpLUA="></script><script type=text/javascript src=/lib/topbar/topbar.min.e4f7cfd8532854ae8dae29c39bff2371fa2576c07dd638634135f68482c3afc5.js integrity="sha256-5PfP2FMoVK6NrinDm/8jcfoldsB91jhjQTX2hILDr8U="></script><script type=text/javascript src=/lib/pjax/pjax.min.dad2dd7a35adf0b10fafaa0376f305c226578ddb3d26472aba131a82c4a9828e.js integrity="sha256-2tLdejWt8LEPr6oDdvMFwiZXjds9JkcquhMagsSpgo4="></script><script type=text/javascript src=/js/theme.min.js defer></script></div><div class=pjax-assets><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{gitalk:{admin:["pengshp"],clientID:"${{ secrets.GITALK_CLIENT_ID }}",clientSecret:"${{ secrets.GITALK_CLIENT_SECRET }}",id:"2017-11-11T11:50:25Z",owner:"pengshp",repo:"pengshp.github.io",title:"树莓派Archlinux Arm 基本配置教程"}},data:{"desktop-header-typeit":"Neal's Blog","mobile-header-typeit":"Neal's Blog"},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/index.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!0,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:50,threshold:.1,type:"fuse",useExtendedSearch:!1},sharerjs:!0,table:{sort:!0},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:-1,speed:200}}</script><script type=text/javascript src=/lib/gitalk/gitalk.min.3e68fce688cb68f396c11b65309c267b307f420f01cef269e5e4f3bd769801f0.js integrity="sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="></script><script type=text/javascript src=/js/gitalk.min.js defer></script><script type=text/javascript src=/lib/clipboard/clipboard.min.11be927cda59c8b6019ebbea838285c5beaf21183ea4b83dbd4e4fbf9413ce4a.js integrity="sha256-Eb6SfNpZyLYBnrvqg4KFxb6vIRg+pLg9vU5Pv5QTzko="></script><script type=text/javascript src=/lib/sharer/sharer.min.8fe10eb615eb163a20f795484430a012805ec7c8c11df52df54ddb7a46084254.js integrity="sha256-j+EOthXrFjog95VIRDCgEoBex8jBHfUt9U3bekYIQlQ="></script><script type=text/javascript src=/lib/typeit/typeit.min.491c13689db70b6adb3176a9a792644be7578a2f931521f5cb199d313a21c359.js integrity="sha256-SRwTaJ23C2rbMXapp5JkS+dXii+TFSH1yxmdMTohw1k="></script><link rel=stylesheet href=/lib/gitalk/gitalk.min.e1f973627089fc121272c24d146e7c52e316a203fcb362eb2f648d803fc0d327.css integrity="sha256-4flzYnCJ/BIScsJNFG58UuMWogP8s2LrL2SNgD/A0yc="></div></body></html>
