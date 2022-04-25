@@ -70,10 +70,12 @@ configuration {
     display-filebrowser:    "";
     display-run:    "";
     display-drun:   "";
+    drun-display-format: "{icon} {name}";
     display-window: "";
     display-combi:  "";
     show-icons: true;
-    icon-theme: "Papirus";
+    //icon-theme: "Papirus";
+    icon-theme: "Tela circle purple dark";
 }
 
 //setup theme
