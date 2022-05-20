@@ -959,9 +959,9 @@ enableEmoji = true
         enable = true
         # owner/repo
         dataRepo = "pengshp/pengshp.github.io"
-        dataRepoId = "${{ secrets.GISCUS_DATA_REPO_ID }}"
-        dataCategory = "Announcements"
-        dataCategoryId = "${{ secrets.GISCUS_DATA_CATEGORY_ID }}"
+        dataRepoId = "R_kgDOHOpEOA"
+        dataCategory = "General"
+        dataCategoryId = "DIC_kwDOHOpEOM4CPNQ4"
         dataMapping = "pathname"
         dataReactionsEnabled = "1"
         dataEmitMetadata = "0"
