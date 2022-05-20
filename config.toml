@@ -844,7 +844,7 @@ enableEmoji = true
       # Gitalk comment config (https://github.com/gitalk/gitalk)
       # Gitalk 评论系统设置 (https://github.com/gitalk/gitalk)
       [params.page.comment.gitalk]
-        enable = true
+        enable = false
         owner = "pengshp"
         repo = "pengshp.github.io"
         clientId = "${{ secrets.GITALK_CLIENT_ID }}"
@@ -956,19 +956,19 @@ enableEmoji = true
       # giscus comment config (https://giscus.app/)
       # giscus comment 评论系统设置 (https://giscus.app/)
       [params.page.comment.giscus]
-        enable = false
+        enable = true
         # owner/repo
-        dataRepo = ""
-        dataRepoId = ""
-        dataCategory = ""
-        dataCategoryId = ""
-        dataMapping = "pathname"
+        dataRepo = "pengshp/pengshp.github.io"
+        dataRepoId = "${{ secrets.GISCUS_DATA_REPO_ID }}"
+        dataCategory = "Announcements"
+        dataCategoryId = "${{ secrets.GISCUS_DATA_CATEGORY_ID }}"
+        dataMapping = "title"
         dataReactionsEnabled = "1"
         dataEmitMetadata = "0"
-        dataInputPosition = "bottom"
+        dataInputPosition = "top"
         lightTheme = "light"
         darkTheme = "dark"
-        dataLang = "en"
+        dataLang = "zh-CN"
     # Third-party library config
     # 第三方库配置
     [params.page.library]
