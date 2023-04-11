@@ -10,8 +10,8 @@
 [Hugo](https://gohugo.io/)
 
 ### 主题|theme
-[Dolt theme](https://github.com/HEIGE-PCloud/DoIt)
-[Next](https://github.com/hugo-next/hugo-theme-next)
+- [Dolt theme](https://github.com/HEIGE-PCloud/DoIt)
+- [Next](https://github.com/hugo-next/hugo-theme-next)
 
 ### 评论系统|Comments
 [giscus](https://giscus.app/zh-CN)
