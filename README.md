@@ -2,7 +2,7 @@
 
 随缘更新，记录一些Linux/Python/Cloud Native相关的文章！欢迎关注，也欢迎互加友链！
 
-<https://blog.hellolinux.cc>
+<https://blog.nealinux.com>
 
 ## 搭建
 
@@ -11,6 +11,7 @@
 
 ### 主题|theme
 [Dolt theme](https://github.com/HEIGE-PCloud/DoIt)
+[Next](https://github.com/hugo-next/hugo-theme-next)
 
 ### 评论系统|Comments
 [giscus](https://giscus.app/zh-CN)
