@@ -4,14 +4,18 @@
 
 <https://blog.nealinux.com>
 
+## RSS
+
+[RSS](https://blog.nealinux.com/atom.xml)
+
 ## 搭建
 
 ### 发布框架|framework
 [Hugo](https://gohugo.io/)
 
 ### 主题|theme
-- [Dolt theme](https://github.com/HEIGE-PCloud/DoIt)
-- [Next](https://github.com/hugo-next/hugo-theme-next)
+- [Dolt theme | old](https://github.com/HEIGE-PCloud/DoIt)
+- [Next | new](https://github.com/hugo-next/hugo-theme-next)
 
 ### 评论系统|Comments
 [giscus](https://giscus.app/zh-CN)
@@ -21,5 +25,6 @@
 1. 更新主题
 
     ```bash
-    git submodule update --remote --merge
+    cd pengshp.github.io
+    git submodule update --remote
     ```
