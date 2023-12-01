@@ -131,7 +131,7 @@ menus:
       weight: 1
     - identifier: archives
       name: 归档
-      pageref: /archives.html
+      pageref: /archives
       pre: archive
       weight: 2
     - identifier: about
@@ -802,15 +802,15 @@ params:
   # Waline comments system
   # More info seee: https://waline.js.org/
   waline:
-    pageView: true
-    comment: true
+    pageView: false
+    comment: false
     placeholder: "请文明发言哟 ヾ(≧▽≦*)o"
     sofa: "快来发表你的意见吧 (≧∀≦)ゞ"
     emoji: false
     imgUploader: false
     wordLimit: 200
     requiredMeta: ["nick", "mail"]
-    reaction: true
+    reaction: false
     reactionText: ["点赞", "踩一下", "得意", "不屑", "尴尬", "睡觉"]
     reactionTitle: "你认为这篇文章怎么样？"
     serverURL: #<your waline server url>
