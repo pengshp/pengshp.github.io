@@ -1,13 +1,11 @@
 ---
 title: Linux 的时间同步那些事
-date: 2018-01-31 13:49:41
+date: 2018-06-02T02:47:34+08:00
 lastmod: 2021-12-04T20:58:26+08:00
 authors: ["Neal"]
 description: "Linux时间同步"
 categories: [CentOS]
 tags: [CentOS]
-featuredImage: "https://hugoblog-img-1251694304.cos.ap-guangzhou.myqcloud.com/blog/time-sync.svg"
-featuredImagePreview: "https://hugoblog-img-1251694304.cos.ap-guangzhou.myqcloud.com/blog/time-sync.svg"
 ---
 Linux中很多服务需要进行时间同步，不然容易导致出错。本文介绍使用阿里云的时间服务器同步服务器的时间。下面介绍三种时间同步的方案。
 <!--more-->

@@ -1,6 +1,6 @@
 ---
 title: CentOS搭建FTP服务器
-date: 2017-10-13 21:08:08
+date: 2018-04-02T02:47:34+08:00
 authors: ["Neal"]
 categories: [CentOS]
 tags: [Linux,CentOS]

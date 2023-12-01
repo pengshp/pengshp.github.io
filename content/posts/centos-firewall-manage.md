@@ -1,6 +1,6 @@
 ---
 title: CentOS 防火墙 firewalld 的管理
-date: 2019-05-18 20:59:06
+date: 2019-11-02T02:47:34+08:00
 authors: ["Neal"]
 categories: [CentOS]
 tags: [CentOS]

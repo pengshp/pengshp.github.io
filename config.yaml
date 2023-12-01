@@ -467,7 +467,7 @@ params:
   # 开启文章头部元素显示
   # Post meta display settings
   postMeta:
-    itemText: true
+    itemText: false
     created: true
     updated:
       enable: false

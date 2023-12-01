@@ -1,6 +1,6 @@
 ---
 title: CentOS 安装 Python3
-date: 2017-12-21 20:04:24
+date: 2019-09-02T02:47:34+08:00
 authors: ["Neal"]
 categories: [CentOS]
 tags: [CentOS,Python]

@@ -1,6 +1,6 @@
 ---
 title: 更新CentOS7.4到CentOS7.5
-date: 2018-05-15 00:31:15
+date: 2018-03-12T02:47:34+08:00
 authors: ["Neal"]
 categories: [CentOS]
 tags: [CentOS]

@@ -1,6 +1,6 @@
 ---
 title: "树莓派Archlinux Arm 基本配置教程"
-date: 2017-11-11 11:50:25
+date: 2018-10-02T02:47:34+08:00
 authors: [Neal]
 categories: [Linux]
 tags: [Linux,RaspberryPi]

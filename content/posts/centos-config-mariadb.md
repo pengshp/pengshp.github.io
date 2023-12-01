@@ -1,6 +1,6 @@
 ---
 title: CentOS7 配置MariaDB数据库
-date: 2017-10-30 20:22:58
+date: 2018-11-02T02:47:34+08:00
 authors: ["Neal"]
 categories: [CentOS]
 tags: [CentOS,MariaDB]

@@ -1,6 +1,6 @@
 ---
 title: CentOS7基本配置
-date: 2017-10-02 21:49:46
+date: 2018-01-02T02:47:34+08:00
 authors: ["Neal"]
 categories: [CentOS]
 tags: [CentOS,Linux]

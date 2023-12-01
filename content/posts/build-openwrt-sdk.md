@@ -1,6 +1,6 @@
 ---
 title: Ubuntu 编译OpenWrt与SDK
-date: 2016-08-04 04:17:22
+date: 2018-02-02T02:47:34+08:00
 authors: ["Neal"]
 categories: [OpenWrt]
 tags: [OpenWrt,sdk]

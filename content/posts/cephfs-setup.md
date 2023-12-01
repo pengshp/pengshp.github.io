@@ -1,6 +1,6 @@
 ---
 title: Ceph 分布式系统搭建
-date: 2020-08-18 17:49:08
+date: 2020-08-08T02:47:34+08:00
 authors: ["Neal"]
 categories: [Linux]
 tags: [Linux]

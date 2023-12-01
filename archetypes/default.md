@@ -1,13 +1,15 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
+description: "{{ .Name }}"
+keywords: "{{replace .Name "-" ","}}"
 date: {{ .Date }}
-authors: ["Neal"]
+lastmod: {{ .Date }}
+authors: "Neal"
 description: ""
-images: []
+imgs: []
 tags: []
 categories: []
-featuredImage: ""
-featuredImagePreview: ""
+
 ---
 
 
