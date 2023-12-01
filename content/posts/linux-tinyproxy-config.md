@@ -1,18 +1,18 @@
 ---
 title: Linux配置Tinyproxy代理
-date: 2020-08-20 14:18:32
+date: 2020-08-20
 authors: ["Neal"]
 categories: [Linux]
 tags: [Linux]
 ---
 
-![tinyproxy](https://pengshp.coding.net/p/images/d/images/git/raw/master/tinyproxy.png "Tinyproxy")
 
-`Tinyproxy`是一个轻量级的http代理软件，速度快体积小，可以使用来把socks5代理转为http代理。测试环境为 :fire: ​ArchLinux,IP:172.16.10.18,Socks5端口1090.
+
+`Tinyproxy`是一个轻量级的http代理软件，速度快体积小，可以使用来把socks5代理转为http代理。测试环境为 :fire: ArchLinux,IP:172.16.10.18,Socks5端口1090.
 
 <!--more-->
 
-### 1.查询软件包
+## 查询软件包
 
 ```shell
 ~$ pacman -Ss tinyproxy
@@ -20,15 +20,15 @@ community/tinyproxy 1.10.0-2 [已安装]
     A light-weight HTTP proxy daemon for POSIX operating systems.
 ```
 
-### 2.安装tinyproxy
+## 安装tinyproxy
 
 ```shell
 ~$ sudo pacman -Sy tinyproxy
 ```
 
-### 3.修改配置文件
+## 修改配置文件
 
-```shell
+```bash
 ~$ vim /etc/tinyproxy/tinyproxy.conf
 User tinyproxy
 Group tinyproxy
@@ -81,14 +81,14 @@ AddHeader "X-My-Header" "Powered by Tinyproxy"
 ViaProxyName "tinyproxy"
 ```
 
-### 4.启动服务
+## 启动服务
 
 ```shell
 ~$ sudo systemctl start tinyproxy.service
 ~$ sudo systemctl enable tinyproxy.service
 ```
 
-### 5.测试
+## 测试
 
 在局域网内的其它主机上把代理设置为上面的Tinyproxy,测试请求头信息
 
@@ -112,7 +112,7 @@ Content-Length: 277
 
 
 
-### 参考：
+## 参考：
 
 1.<https://tinyproxy.github.io/>
 

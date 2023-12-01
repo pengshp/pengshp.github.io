@@ -129,6 +129,11 @@ menus:
       pageref: /
       pre: home
       weight: 1
+    - identifier: archives
+      name: 归档
+      pageref: /archives.html
+      pre: archive
+      weight: 2
     - identifier: about
       name: 关于
       pageref: /about.html
@@ -139,11 +144,7 @@ menus:
     #   pageref: /flinks.html
     #   pre: thumbs-up
     #   weight: 3
-    - identifier: archives
-      name: 归档
-      pageref: /archives
-      pre: archive
-      weight: 2
+
     - identifier: commonweal
       name: 公益
       url: /404.html
@@ -469,8 +470,8 @@ params:
     itemText: true
     created: true
     updated:
-      enable: true
-      anotherDay: true
+      enable: false
+      anotherDay: false
     categories: true
     wordCount: false
     readTime: false
@@ -779,7 +780,7 @@ params:
     # 如果设置为 false，将采用 active 参数的那个插件
     # Setting `true` means remembering the comment system selected by
     # the visitor, otherwise use the `active` setting comment system.
-    storage: true
+    storage: false
     # TODO
     # Lazyload all comment systems.
     # lazyload: false
