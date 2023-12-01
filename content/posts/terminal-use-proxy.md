@@ -1,6 +1,6 @@
 ---
 title: 命令行终端中使用代理下载
-date: 2016-10-06 18:59:56
+date: 2017-02-02T02:47:34+08:00
 authors: ["Neal"]
 categories: ["MacOS"]
 tags: [Linux]

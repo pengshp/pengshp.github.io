@@ -1,6 +1,6 @@
 ---
 title: Linux配置Tinyproxy代理
-date: 2020-08-20
+date: 2020-08-20T02:47:34+08:00
 authors: ["Neal"]
 categories: [Linux]
 tags: [Linux]

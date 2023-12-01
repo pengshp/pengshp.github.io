@@ -1,6 +1,6 @@
 ---
 title: OpenWrt-SDK编译自己的ipk包
-date: 2016-08-05 18:45:45
+date: 2016-08-05T02:47:34+08:00
 authors: ["Neal"]
 categories: [OpenWrt]
 tags: [OpenWrt,SDK]

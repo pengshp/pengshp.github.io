@@ -14,13 +14,13 @@ categories: [Linux]
 
 
 <!--more-->
-### 三个通用字体族名 (generic family)
+## 三个通用字体族名 (generic family)
 
 - snas-serif    无衬线
 - serif  衬线
 - monospace  等宽字体
 
-### ttf 和otf 的区别
+## ttf 和otf 的区别
 
 TTF（TrueType Font）是Apple公司和Microsoft公司共同推出的字体文件格式，随着windows的流行，已经变成最常用的一种字体文件表示方式。 而OTF（OpenType Font）是TTF 的升级版，而OTF 是采用的是PostScript 曲线，支持OpenType 高级特性的更高级字体。
 

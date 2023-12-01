@@ -1,6 +1,6 @@
 ---
 title: 令人震惊的单行Python代码
-date: 2016-07-12 18:22:01
+date: 2016-07-12T02:47:34+08:00
 authors: ["Neal"]
 categories: [Python]
 tags: [Python]

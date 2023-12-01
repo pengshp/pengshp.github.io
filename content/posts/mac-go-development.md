@@ -1,6 +1,6 @@
 ---
 title: Mac OS下设置 Go 语言开发环境
-date: 2017-09-09 12:37:58
+date: 2017-09-09T02:47:34+08:00
 authors: ["Neal"]
 categories: [Golang]
 tags: [Mac]

@@ -1,6 +1,6 @@
 ---
 title: 通信协议 UART 总结
-date: 2017-05-29 03:41:24
+date: 2017-05-29T02:47:34+08:00
 authors: ["Neal"]
 categories: [IoT]
 tags: [IoT]

@@ -1,6 +1,6 @@
 ---
 title: 使用 Checkinstall 编译打包Debian包
-date: 2016-11-22 11:20:39
+date: 2016-11-22T02:47:34+08:00
 authors: ["Neal"]
 categories: [Linux]
 tags: [Linux]

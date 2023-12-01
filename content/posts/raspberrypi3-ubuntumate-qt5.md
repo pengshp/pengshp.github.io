@@ -1,6 +1,6 @@
 ---
 title: Raspberrypi3的UbuntuMate16.04上安装最新qt5
-date: 2016-05-01 12:56:15
+date: 2016-05-01T02:47:34+08:00
 authors: ["Neal"]
 categories: [RaspberryPi]
 tags: [RaspberryPi]

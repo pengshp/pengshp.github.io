@@ -1,6 +1,6 @@
 ---
 title: HAProxy实现负载均衡
-date: 2018-02-01 14:07:27
+date: 2018-02-01T02:47:34+08:00
 authors: ["Neal"]
 categories: [CentOS]
 tags: [CentOS]

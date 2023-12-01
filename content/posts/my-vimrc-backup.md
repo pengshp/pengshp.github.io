@@ -1,6 +1,6 @@
 ---
 title: 我的 vim 配置文件
-date: 2020-07-18 16:21:51
+date: 2020-07-18T02:47:34+08:00
 authors: ["Neal"]
 categories: [Linux]
 tags: [Linux,vim]

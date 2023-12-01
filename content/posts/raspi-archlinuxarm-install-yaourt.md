@@ -1,6 +1,6 @@
 ---
 title: 树莓派 Archlinux ARM 安装yaourt
-date: 2016-08-29 22:26:30
+date: 2016-08-29T02:47:34+08:00
 authors: ["Neal"]
 categories: [RaspberryPi]
 tags: [RaspberryPi,Linux]

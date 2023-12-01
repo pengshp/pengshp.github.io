@@ -1,6 +1,6 @@
 ---
 title: K8S 集群搭建指南
-date: 2021-07-11 10:17:18
+date: 2021-07-11T02:47:34+08:00
 authors: ["Neal"]
 categories: [K8S]
 tags: [K8S]

@@ -1,6 +1,6 @@
 ---
 title: 树莓派2/３安装Archlinux教程
-date: 2016-03-28 21:57:02
+date: 2016-03-28T02:47:34+08:00
 authors: ["Neal"]
 categories: [RaspberryPi]
 tags: [RaspberryPi, Linux]

@@ -131,7 +131,7 @@ menus:
       weight: 1
     - identifier: archives
       name: 归档
-      pageref: /archives
+      pageref: /posts
       pre: archive
       weight: 2
     - identifier: about
@@ -467,7 +467,7 @@ params:
   # 开启文章头部元素显示
   # Post meta display settings
   postMeta:
-    itemText: false
+    itemText: true
     created: true
     updated:
       enable: false
@@ -475,6 +475,18 @@ params:
     categories: true
     wordCount: false
     readTime: false
+    # 是否开启评论数显示
+    comments:
+      enable: false
+      # 评论统计插件，暂只支持waline
+      # Comment counter plugin, only support waline
+      plugin: waline
+    # 是否开启页面访问数显示
+    views:
+      enable: false
+      # 页面访问统计插件，支持busuanzi, waline, leancloud
+      # Page views counter plugin, support: busuanzi, waline, leancloud
+      plugin: busuanzi
 
   # 文章底部的设置
   # Post footer settings

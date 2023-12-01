@@ -1,6 +1,6 @@
 ---
 title: 使用 Docker buildx 构建多架构镜像
-date: 2020-07-16 13:38:05
+date: 2020-07-16T02:47:34+08:00
 authors: ["Neal"]
 categories: [Docker]
 tags: [Docker,Linux]

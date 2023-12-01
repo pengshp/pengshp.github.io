@@ -1,6 +1,6 @@
 ---
 title: Ｘshell自定义配色方案
-date: 2016-04-04 14:02:15
+date: 2016-12-02T02:47:34+08:00
 authors: ["Neal"]
 categories: [Linux]
 tags: [Linux]

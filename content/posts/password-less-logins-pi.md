@@ -1,6 +1,6 @@
 ---
 title: 免密码登录树莓派
-date: 2016-08-20 14:17:27
+date: 2016-08-20T02:47:34+08:00
 authors: ["Neal"]
 categories: [Linux]
 tags: [RaspberryPi]
